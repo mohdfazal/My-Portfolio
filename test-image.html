@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Test</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            padding: 20px; 
+            background: #1a1a1a; 
+            color: white; 
+        }
+        .test-container {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .image-test {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #06b6d4;
+            margin: 20px auto;
+            display: block;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .success { background: #10b981; }
+        .error { background: #ef4444; }
+        .info { background: #3b82f6; }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🖼️ Profile Image Test</h1>
+        
+        <div class="status info">
+            <strong>Testing:</strong> assets/profile.jpg
+        </div>
+        
+        <img src="assets/profile.jpg" alt="Profile Test" class="image-test" 
+             onload="showSuccess()" onerror="showError()">
+        
+        <div id="status" class="status error" style="display:none;">
+            Loading...
+        </div>
+        
+        <div class="status info">
+            <h3>📋 Instructions:</h3>
+            <ol style="text-align: left;">
+                <li>Copy your profile picture to the <code>assets</code> folder</li>
+                <li>Rename it to exactly <code>profile.jpg</code></li>
+                <li>Refresh this page (F5)</li>
+                <li>You should see your image above</li>
+            </ol>
+        </div>
+        
+        <div class="status info">
+            <h3>🔧 Troubleshooting:</h3>
+            <ul style="text-align: left;">
+                <li>File must be named exactly: <code>profile.jpg</code></li>
+                <li>File must be in: <code>assets/profile.jpg</code></li>
+                <li>Supported formats: JPG, PNG, WebP</li>
+                <li>Try refreshing with Ctrl+F5</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function showSuccess() {
+            const status = document.getElementById('status');
+            status.innerHTML = '✅ SUCCESS! Your image is loading correctly!';
+            status.className = 'status success';
+            status.style.display = 'block';
+        }
+        
+        function showError() {
+            const status = document.getElementById('status');
+            status.innerHTML = '❌ ERROR! Image not found. Please check the instructions above.';
+            status.className = 'status error';
+            status.style.display = 'block';
+        }
+        
+        // Check if image loads within 3 seconds
+        setTimeout(() => {
+            const img = document.querySelector('.image-test');
+            if (img.complete && img.naturalHeight !== 0) {
+                showSuccess();
+            } else {
+                showError();
+            }
+        }, 3000);
+    </script>
+</body>
+</html> 
